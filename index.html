@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Boomgraph</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le styles -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+        <link href="assets/css/responsive.css" rel="stylesheet">
+        <link href="assets/css/docs.css" rel="stylesheet">
+        <link href="assets/google-code-prettify/prettify.css" rel="stylesheet">
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    </head>
+
+    <body data-spy="scroll" data-target=".subnav" data-offset="50">
+
+
+        <div class="container">
+
+            <!-- Masthead
+            ================================================== -->
+            <header class="jumbotron subhead" id="overview">
+                <h1>Findahouse</h1>
+                <p class="lead">Search, save and find your house.
+            </header>
+            <div class="subnav">
+                <ul class="nav nav-pills">
+                    <li><a href="#map">Map</a></li>
+                    <li><a href="#modal-add-map" data-toggle="modal">Add a house</a></li>
+                    <li><a href="#area">Find one</a></li>
+                </ul>
+            </div>
+
+
+            <!-- Map
+            ================================================== -->
+            <section id="map">
+                <div class="row">
+                    <div class="span12 columns">
+                        <div id="map-global" style="height:400px;width:900px;margin:auto">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Details
+            ================================================== -->
+            <section id="house">
+            </section>
+            <script id="template-house" type="text/x-jquery-tmpl">
+               <div class="page-header">
+                    <h1 style="float: left">${name}</h1>
+                    <h1 style="float: right">${price}€</h1>
+                    <div style="clear:both"></div>
+                </div>
+                <div class="row">
+                    <div class="span6 columns">
+                        <div id="myCarousel" class="carousel slide">
+                            <div class="carousel-inner">
+                                {{each photos}}
+                                 <div class="item">
+                                    <img src=" ${$value}" alt="">
+                                </div>
+                                {{/each}}
+                                
+                            </div>
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+                        </div>
+                        <p>
+                            <label class="label"> Url : </label> <a href="#"> ${urlAnnonce}</a>
+                        </p>
+                        <div>
+                            <label class="label"> Contact : </label> 
+                            <p>
+                                ${contact}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="span6 columns">
+                        <div class="row">
+                            <div class="span3 columns">
+                                <h2>Habitable : ${surfaceHabitable}m<sup>2</sup></h2>
+                            </div>
+                            <div class="span3 columns">
+                                <h2>Terrain : ${surfaceTerrain}m<sup>2</sup></h2>
+                            </div>
+                        </div>
+                        <div style="margin:30px 0">
+                            <ul>
+                                <li>
+                                    ${nbBatiments} batiments
+                                </li>
+                                <li>
+                                    ${distanceTownship} du bourg (${address})
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="alert alert-info">
+                            ${description}
+                        </div>
+                        <div class="alert alert">
+                            ${note}
+                        </div>
+                    </div>
+                </div>
+                </div>
+                
+            </script>
+            
+
+            <!-- Footer
+             ================================================== -->
+            <footer class="footer">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>Designed and built at <a href="http://retent.io/" target="_blank">Retentio</a> (<a href="http://twitter.com/retentio" target="_blank">@retentio</a>) by <a href="http://twitter.com/antoineguiral" target="_blank">@antoineguiral</a>.</p>
+                <p>Code licensed under the <a href="https://raw.github.com/Retentio/Boomgraph/master/LICENCE" target="_blank">MIT Licence</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+            </footer>
+
+        </div><!-- /container -->
+
+        <!-- Les modals
+       ================================================== -->
+
+        <div class="modal fade" id="modal-add-map">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Add a new house</h3>
+            </div>
+            <div class="modal-body">
+
+<!--                <div id="ctrl">Address : <input type="text" id="address-adding-house" size="60"> </div>  -->
+                <!--                <div id="ctrl">Address : <input type="text" id="address-adding-house" size="60"> </div>  -->
+                <div id="map-adding-house" style="display:none"></div>
+                <!--                <div id="map-adding-house" style="height:300px;width:500px;margin:auto"></div>-->
+                <form  id="form-adding-house" class="form-horizontal">
+                    <fieldset>
+                        
+                        <div class="control-group">
+                            <label class="control-label" for="urlAnnonce">Url annonce</label>
+                            <div class="controls">
+                                <input name="urlAnnonce" type="text" class="input-xlarge" id="urlAnnonce">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="name">Name</label>
+                            <div class="controls">
+                                <input name="name" type="text" class="input-xlarge" id="name">
+<!--                                <p class="help-block">Supporting help text</p>-->
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" >Address</label>
+                            <div class="controls">
+                               <input type="text" id="address-adding-house" size="60">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="price">Price</label>
+                            <div class="controls">
+                                <input name="price" type="text" class="input-xlarge" id="price">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="surfaceHabitable">Surface habitable</label>
+                            <div class="controls">
+                                <input name="surfaceHabitable" type="text" class="input-xlarge" id="surfaceHabitable">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="surfaceTerrain">Surface Terrain</label>
+                            <div class="controls">
+                                <input name="surfaceTerrain" type="text" class="input-xlarge" id="surfaceTerrain">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="batiments">Batiments</label>
+                            <div class="controls">
+                                <input name="batiments" type="text" class="input-xlarge" id="batiments">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="photos">Photos</label>
+                            <div class="controls">
+                                <input name="photos[]" type="text" class="input-xlarge" id="photos">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="description">Description</label>
+                            <div class="controls">
+                                <textarea name="description" id="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="distanceTownship">Distance bourg</label>
+                            <div class="controls">
+                                <input name="distanceTownship" type="text" class="input-xlarge" id="distanceTownship">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="contact">Contact</label>
+                            <div class="controls">
+                                <input  name="contact" type="text" class="input-xlarge" id="contact">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="note">Note</label>
+                            <div class="controls">
+                                <textarea name="note" id="note"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" id="add-house">Add</a>
+            </div>
+        </div>
+
+
+
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="assets/js/bootstrap-transition.js"></script>
+        <script src="assets/js/bootstrap-dropdown.js"></script>
+        <script src="assets/js/bootstrap-scrollspy.js"></script>
+        <script src="assets/js/bootstrap-tab.js"></script>
+        <script src="assets/js/bootstrap-collapse.js"></script>
+        <script src="assets/js/bootstrap-carousel.js"></script>
+        <script src="assets/js/bootstrap-modal.js"></script>
+        <script src="assets/js/jquery-autocomplete.min.js"></script>
+        <script src="assets/js/tmpl.js"></script>
+
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        <script src="assets/js/gmap3.js"></script>
+
+
+
+        <script src="assets/js/doc.js"></script>
+    </body>
+</html>
