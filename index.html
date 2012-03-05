@@ -28,15 +28,14 @@
             ================================================== -->
             <header class="jumbotron subhead" id="overview">
                 <h1>Findahouse</h1>
-                <p class="lead">Search, save and find your house.
+                <p class="lead">Search, save and find your house.</p>
+                <div style="bottom: 0;position: absolute;right: 0;">
+                    <p class="download-info">
+                        <a href="#modal-add-map" class="btn btn-primary btn-large" data-toggle="modal">Add a house</a>
+                        
+                    </p>
+                </div>
             </header>
-            <div class="subnav">
-                <ul class="nav nav-pills">
-                    <li><a href="#map">Map</a></li>
-                    <li><a href="#modal-add-map" data-toggle="modal">Add a house</a></li>
-                    <li><a href="#area">Find one</a></li>
-                </ul>
-            </div>
 
 
             <!-- Map
@@ -88,19 +87,19 @@
                     <div class="span6 columns">
                         <div class="row">
                             <div class="span3 columns">
-                                <h2>Habitable : ${surfaceHabitable}m<sup>2</sup></h2>
+                                <h2>Living : ${surfaceHabitable}m<sup>2</sup></h2>
                             </div>
                             <div class="span3 columns">
-                                <h2>Terrain : ${surfaceTerrain}m<sup>2</sup></h2>
+                                <h2>Land : ${surfaceTerrain}m<sup>2</sup></h2>
                             </div>
                         </div>
                         <div style="margin:30px 0">
                             <ul>
                                 <li>
-                                    ${nbBatiments} batiments
+                                    ${nbBatiments} buildings
                                 </li>
                                 <li>
-                                    ${distanceTownship} du bourg (${address})
+                                    ${distanceTownship}km from township (${address})
                                 </li>
                             </ul>
                         </div>
@@ -170,19 +169,19 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="surfaceHabitable">Surface habitable</label>
+                            <label class="control-label" for="surfaceHabitable">Living (m<<sup>2</sup>)</label>
                             <div class="controls">
                                 <input name="surfaceHabitable" type="text" class="input-xlarge" id="surfaceHabitable">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="surfaceTerrain">Surface Terrain</label>
+                            <label class="control-label" for="surfaceTerrain">Land (m<<sup>2</sup>)</label>
                             <div class="controls">
                                 <input name="surfaceTerrain" type="text" class="input-xlarge" id="surfaceTerrain">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="batiments">Batiments</label>
+                            <label class="control-label" for="batiments">Buildings</label>
                             <div class="controls">
                                 <input name="batiments" type="text" class="input-xlarge" id="batiments">
                             </div>
@@ -200,7 +199,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label" for="distanceTownship">Distance bourg</label>
+                            <label class="control-label" for="distanceTownship">Distance from township (km)</label>
                             <div class="controls">
                                 <input name="distanceTownship" type="text" class="input-xlarge" id="distanceTownship">
                             </div>
