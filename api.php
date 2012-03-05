@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/silex.phar';
+require_once 'phar://'.__DIR__.'/silex.phar/autoload.php';
 require_once __DIR__ . '/src/House.php';
 require_once __DIR__ . '/src/Mongo.php';
 
