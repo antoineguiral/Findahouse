@@ -111,9 +111,8 @@ $(document).ready(function(){
                     form.append($('<input type="hidden" name="address_components['+i+'][long_name]" value="'+item.address_components[i].long_name+'"/>'))
                 }
                 form.append($('<input type="hidden" name="formatted_address" value="'+item.formatted_address+'"/>'))
-                form.append($('<input type="hidden" name="latLng[lat]" value="'+item.geometry.location.Sa+'"/>'))
-                form.append($('<input type="hidden" name="latLng[lon]" value="'+item.geometry.location.Ta+'"/>'))
-                
+                form.append($('<input type="hidden" name="latLng[lat]" value="'+item.geometry.location.lat()+'"/>'))
+                form.append($('<input type="hidden" name="latLng[lon]" value="'+item.geometry.location.lng()+'"/>'))
 //                $("#map-adding-house").gmap3({
 //                    action:'clear', 
 //                    name:'marker'
@@ -132,7 +131,7 @@ $(document).ready(function(){
 
     $('#add-house').click(function(){
         $.post('api.php/house/create',$('#form-adding-house').serialize(),function(json){
-//            $('#form-adding-house').submit()
+               location.reload()
         })
     })
     
