@@ -171,7 +171,7 @@ class House {
             $a=$collectionHouse->save($thisToArray, array("safe" => true));
             $this->id=$thisToArray['_id']->{'$id'};
         }else{
-            $thisToArray['_id']=$thisToArray['id'];
+            $thisToArray['_id']=new \MongoId($thisToArray['id']);
             unset($thisToArray['id']);
             $collectionHouse->save($thisToArray);
         }
@@ -180,7 +180,7 @@ class House {
     }
     
     public function hydrate($data) {
-        $this->id=$data['id'];
+        $this->id=$data['_id']->{'$id'};
         $this->name=$data['name'];
         $this->latLng=$data['latLng'];
         $this->address=$data['address'];

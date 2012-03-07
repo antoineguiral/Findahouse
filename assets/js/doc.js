@@ -145,12 +145,36 @@ $(document).ready(function(){
         newPhotos=$(this).clone()
         $(this).parent().append(newPhotos)
     })
+    
+    $('.edit-house').live('click',function(){
+        id=$(this).attr('id').replace('house-','')
+        editHouse(id)
+    })
+    $('.save').live('click',function(){
+        var id=$(this).attr('id').replace('save-','')
+        form=$(this).parents('form')
+        $.post('api.php/house/'+id,form.serialize(),function(json){
+               showHouse(id)
+        })
+        return false;
+    })
+    $('.cancel').live('click',function(){
+        id=$(this).attr('id').replace('cancel-','')
+        showHouse(id)
+        return false;
+    })
 })
 
 showHouse = function(id){
     $.getJSON('api.php/house/'+id, {}, function(json){
-        tweet=$('#template-house').tmpl(json)
-        $('#house').html(tweet)
+        house=$('#template-house').tmpl(json)
+        $('#house').html(house)
         $('#house').find('#myCarousel .item:first').addClass('active')
+    })
+}
+editHouse = function(id){
+    $.getJSON('api.php/house/'+id, {}, function(json){
+        house=$('#template-house-edit').tmpl(json)
+        $('#house').html(house)
     })
 }

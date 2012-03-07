@@ -29,9 +29,8 @@ $app->post('/house/create', function() use($app) {
         $house->setUrlAnnonce($app['request']->get('urlAnnonce'));
 
         $house->save();
-
-        echo '<pre>';
-        var_dump($house);
+        
+        return 1;
     });
 $app->get('/house/all', function() use($app) {
 
@@ -68,5 +67,40 @@ $app->get('/house/{id}', function($id) use($app) {
         }
         
         return json_encode($house);
+    });
+$app->post('/house/{id}', function($id) use($app) {
+
+        $data = Mongo::getConnection()->selectDB('findahouse')
+            ->selectCollection('house')
+            ->findOne(array('_id' => new \MongoId($id)));
+
+        $house = null;
+        if ($data != null) {
+            
+            $house = new House();
+            $house ->hydrate($data);
+        }
+        
+        $house->setContact($app['request']->get('contact'));
+        $house->setDescription($app['request']->get('description'));
+        $house->setDistanceTownship($app['request']->get('distanceTownship'));
+        $house->setName($app['request']->get('name'));
+        $house->setNbBatiments($app['request']->get('batiments'));
+        $house->setNote($app['request']->get('note'));
+        $house->setPhotos($app['request']->get('photos'));
+        $house->setPrice($app['request']->get('price'));
+        $house->setSurfaceHabitable($app['request']->get('surfaceHabitable'));
+        $house->setSurfaceTerrain($app['request']->get('surfaceTerrain'));
+        $house->setUrlAnnonce($app['request']->get('urlAnnonce'));
+        
+        $house->save();
+        
+        return json_encode($house);
+    });
+$app->get('/user/auth', function() use($app) {
+    
+        
+        
+        return 1;
     });
 $app->run();

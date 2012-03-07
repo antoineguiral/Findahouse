@@ -32,7 +32,7 @@
                 <div style="bottom: 0;position: absolute;right: 0;">
                     <p class="download-info">
                         <a href="#modal-add-map" class="btn btn-primary btn-large" data-toggle="modal">Add a house</a>
-                        
+
                     </p>
                 </div>
             </header>
@@ -54,9 +54,13 @@
             ================================================== -->
             <section id="house">
             </section>
+
             <script id="template-house" type="text/x-jquery-tmpl">
-               <div class="page-header">
-                    <h1 style="float: left">${name}</h1>
+                <div class="page-header">
+                    <h1 style="float: left">
+                        ${name}
+                        <a href="#" class="edit-house" id="house-${id}"><i class="icon-pencil"></i></a>
+                    </h1>
                     <h1 style="float: right">${price}€</h1>
                     <div style="clear:both"></div>
                 </div>
@@ -65,11 +69,11 @@
                         <div id="myCarousel" class="carousel slide">
                             <div class="carousel-inner">
                                 {{each photos}}
-                                 <div class="item">
+                                <div class="item">
                                     <img src=" ${$value}" alt="">
                                 </div>
                                 {{/each}}
-                                
+
                             </div>
                             <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
                             <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
@@ -112,10 +116,73 @@
                         </div>
                     </div>
                 </div>
-                </div>
-                
+
             </script>
-            
+
+            <script id="template-house-edit" type="text/x-jquery-tmpl">
+                <form id="edit-house-${id}">
+                    <div class="page-header">
+                        <h1 style="float: left"><input name="name" type="text" class="input-xlarge" id="name" value="${name}"></h1>
+                        <h1 style="float: right"><input name="price" type="text" class="input-xlarge" id="price" value="${price}">€</h1>
+                        <div style="clear:both"></div>
+                    </div>
+                    <div class="row">
+                        <div class="span6 columns">
+                            <div class="carousel-inner">
+                                {{each photos}}
+                                <input name="photos[]" type="text" class="input-xlarge input-photos" id="photos" value="${$value}" >
+                                {{/each}}
+
+                            </div>
+                            <p>
+                                <label class="label"> Url : </label> <input name="urlAnnonce" type="text" class="input-xlarge" id="urlAnnonce" value="${urlAnnonce}"></a>
+                            </p>
+                            <div>
+                                <label class="label"> Contact : </label> 
+                                <p>
+                                    <input name="contact" type="text" class="input-xlarge" id="contact" value="${contact}">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="span6 columns">
+                            <div class="row">
+                                <div class="span3 columns">
+                                    <h2>Living : <input name="surfaceHabitable" type="text" class="input-xlarge" id="surfaceHabitable" value="${surfaceHabitable}">m<sup>2</sup></h2>
+                                </div>
+                                <div class="span3 columns">
+                                    <h2>Land : <input name="surfaceTerrain" type="text" class="input-xlarge" id="surfaceTerrain" value="${surfaceTerrain}">m<sup>2</sup></h2>
+                                </div>
+                            </div>
+                            <div style="margin:30px 0">
+                                <ul>
+                                    <li>
+                                        <input name="nbBatiments" type="text" class="input-xlarge" id="nbBatiments" value="${nbBatiments}"> buildings
+                                    </li>
+                                    <li>
+                                        <input name="distanceTownship" type="text" class="input-xlarge" id="distanceTownship" value="${distanceTownship}">km from township (${address})
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <textarea name="description">
+                                ${description}
+                                </textarea>
+                            </div>
+                            <div class="alert alert">
+                                <textarea name="note" id="note">
+                                    ${note}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary save" id="save-${id}">Save changes</button>
+                        <a href="#${id}" class="btn cancel" id="cancel-${id}" >Cancel</button>
+                      </div>
+                </form>
+            </script>
+
 
             <!-- Footer
              ================================================== -->
@@ -127,7 +194,7 @@
         </div><!-- /container -->
 
         <!-- Les modals
-       ================================================== -->
+        ================================================== -->
 
         <div class="modal fade" id="modal-add-map">
             <div class="modal-header">
@@ -136,13 +203,13 @@
             </div>
             <div class="modal-body">
 
-<!--                <div id="ctrl">Address : <input type="text" id="address-adding-house" size="60"> </div>  -->
+                <!--                <div id="ctrl">Address : <input type="text" id="address-adding-house" size="60"> </div>  -->
                 <!--                <div id="ctrl">Address : <input type="text" id="address-adding-house" size="60"> </div>  -->
                 <div id="map-adding-house" style="display:none"></div>
                 <!--                <div id="map-adding-house" style="height:300px;width:500px;margin:auto"></div>-->
                 <form  id="form-adding-house" class="form-horizontal">
                     <fieldset>
-                        
+
                         <div class="control-group">
                             <label class="control-label" for="urlAnnonce">Url annonce</label>
                             <div class="controls">
@@ -153,13 +220,13 @@
                             <label class="control-label" for="name">Name</label>
                             <div class="controls">
                                 <input name="name" type="text" class="input-xlarge" id="name">
-<!--                                <p class="help-block">Supporting help text</p>-->
+                                <!--                                <p class="help-block">Supporting help text</p>-->
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label" >Address</label>
                             <div class="controls">
-                               <input type="text" id="address-adding-house" size="60">
+                                <input type="text" id="address-adding-house" size="60">
                             </div>
                         </div>
                         <div class="control-group">
