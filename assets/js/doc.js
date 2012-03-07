@@ -141,7 +141,10 @@ $(document).ready(function(){
         })
     })
     
-    
+    $('.input-photos:last').live('focus',function(){
+        newPhotos=$(this).clone()
+        $(this).parent().append(newPhotos)
+    })
 })
 
 showHouse = function(id){
