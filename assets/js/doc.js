@@ -37,6 +37,11 @@
 }(window.jQuery)
 
 $(document).ready(function(){
+    id=window.location.hash.replace('#','')
+    if(id != ''){
+        showHouse(id)
+    }
+
 
     $.getJSON('api.php/house/all', {}, function(json){
         
@@ -68,6 +73,7 @@ $(document).ready(function(){
               events:{
                   click: function(marker, event, data){
                       showHouse(data);
+                      window.location.hash=data
                   }
                 
                 }
@@ -134,8 +140,6 @@ $(document).ready(function(){
                location.reload()
         })
     })
-    
-    
     
     
 })
